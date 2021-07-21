@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/cctv_17/cctv_17.iml" filepath="$PROJECT_DIR$/cctv_17/cctv_17.iml" />
       <module fileurl="file://$PROJECT_DIR$/jx_data/jx_data.iml" filepath="$PROJECT_DIR$/jx_data/jx_data.iml" />
     </modules>
   </component>
