@@ -1,5 +1,5 @@
 import pymysql
-import db_conf
+import datatask.src.resume.db_conf
 db = pymysql.connect(host=db_conf.host,
                      port=db_conf.port,
                      user=db_conf.user,

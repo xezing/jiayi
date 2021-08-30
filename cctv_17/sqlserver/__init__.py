@@ -34,14 +34,19 @@ class MSSQL:
         self.conn.close()
 
     def getData(self, sql):
-        count=0
+        count = 0
         for i in range(len(sql)):
+            for j in range(len(sql[i])):
+                count += 1
+                print(sql[i][j],end=',')
+                if count % len(sql[i])==0:
+                    print('\n')
 
 
 
-
-
-
-
+if __name__ == '__main__':
+    ms = MSSQL(host='',user='',pwd='',db='')
+    sql = ms.execQuery(sql='')
+    ms.getData(sql)
 
 
