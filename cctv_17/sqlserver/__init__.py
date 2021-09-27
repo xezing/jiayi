@@ -44,6 +44,7 @@ class MSSQL:
 
 
 
+
 if __name__ == '__main__':
     ms = MSSQL(host='',user='',pwd='',db='')
     sql = ms.execQuery(sql='')
