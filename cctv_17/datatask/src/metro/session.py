@@ -29,5 +29,3 @@ for row in sh.iter_rows(min_row=4, max_row=10, min_col=10, max_col=10, values_on
     response_data = requests.get('http://10.17.200.88/groupdevice/v1/device/runinfo/%s' % (row[9]),
                                  headers=header).json()
     writer.writerow([row[2], row[8], row[1], row[9], response_data])
-    for cell in row:
-        print(requests.get('http://10.17.200.88/groupdevice/v1/device/runinfo/%s' % (cell), headers=header).json())

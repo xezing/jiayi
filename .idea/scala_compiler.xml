@@ -4,7 +4,7 @@
     <profile name="Maven 1" modules="data_task">
       <parameters>
         <parameter value="-dependencyfile" />
-        <parameter value="D:\workspace\jiayi\data_task\target/.scala_dependencies" />
+        <parameter value="D:\work\workspace\jiayi\data_task\target/.scala_dependencies" />
       </parameters>
     </profile>
   </component>
