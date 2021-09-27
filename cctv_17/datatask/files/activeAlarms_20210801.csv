@@ -1,0 +1,29 @@
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}]",Huawei/U2000_2,数据库表记录数达到阈值,OT_EMS,20210728184007.0Z,20210728184007.0Z,true,1,UNIDENTIFIED,0-120,PS_MINOR,SA_NON_SERVICE_AFFECTING,FALSE,13801510,数据库表记录数达到阈值,"服务器=DBSVR, 数据库名称=logdb, 表名称=tbl_Security",qualityofServiceAlarm,,false,"[{'notifIDs': [], 'source': []}]","步骤1 检查告警的发生时间与当前时间的间隔以及定位信息。
+    - 如果小于10分钟，且定位信息中包含tbl_alm_log或tbl_event_log，因网管每隔10分钟会自动修复该告警，可暂不处理，转[步骤5]。
+    - 否则，转[步骤2]。
+步骤2 检查是哪个数据库表的记录数达到阈值。
+    在“集中任务管理”窗口的任务列表中按如下对应关系选择任务：
+    - 如果定位信息中包含tbl_alm_log，选择“告警溢出转储”，转[步骤3]。
+    - 如果定位信息中包含tbl_event_log，选择“事件溢出转储”，转[步骤3]。
+    - 如果定位信息中包含tbl_SysLog，选择“系统日志溢出转储”，转[步骤3]。
+    - 如果定位信息中包含tbl_Security，选择“安全日志溢出转储”，转[步骤3]。
+    - 如果定位信息中包含tbl_Audit，选择“操作日志溢出转储”，转[步骤3]
+    - 否则，转[步骤4]。
+步骤3 处理表记录数达到阈值。  
+      右键选择“属性”，选择“扩展参数”页签。
+    - 如果“最大存储容量”与“记录越限阈值”的乘积小于“最大存储容量”最大值的40%，则上调这两个参数并单击“确定”，然后在任务列表中右键单击本任务，选择“立即执行”，转[步骤5]。
+    - 否则，转[步骤4]。
+步骤4 请联系华为技术有限公司技术支持工程师协助解决。
+步骤5 结束。"
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145750'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|65|'}]",信号－1徐泾车辆段,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548637,带保护业务的工作或保护业务中断导致保护降级,信号－1徐泾车辆段,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821091'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145750'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|7|'}]",信号－2徐泾车辆段,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548638,带保护业务的工作或保护业务中断导致保护降级,信号－2徐泾车辆段,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821091'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145750'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|85|'}]",专用无线(主控-车辆段)1,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548639,带保护业务的工作或保护业务中断导致保护降级,专用无线(主控-车辆段)1,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821091'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145750'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|53|'}]",专用无线(主控-车辆段)2,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548640,带保护业务的工作或保护业务中断导致保护降级,专用无线(主控-车辆段)2,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821091'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145750'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|151|'}]",专用无线(主控-车辆段)3,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548641,带保护业务的工作或保护业务中断导致保护降级,专用无线(主控-车辆段)3,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821091'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145730'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|360|'}]",专用无线(主控-停车场)1,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548642,带保护业务的工作或保护业务中断导致保护降级,专用无线(主控-停车场)1,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821092'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145730'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|12|'}]",专用无线(主控-停车场)2,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548643,带保护业务的工作或保护业务中断导致保护降级,专用无线(主控-停车场)2,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821092'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145730'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|423|'}]",专用无线(主控-停车场)3,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548644,带保护业务的工作或保护业务中断导致保护降级,专用无线(主控-停车场)3,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821092'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145730'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|83|'}]",信号-1（主控-停车场）,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548645,带保护业务的工作或保护业务中断导致保护降级,信号-1（主控-停车场）,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821092'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}, {'name': 'ManagedElement', 'value': '3145730'}, {'name': 'MatrixFlowdomainFragment', 'value': 'PWE3=2|580|'}]",信号-2（主控-停车场）,PROTECT_LOSS,OT_AID,20210615070308.0Z,20210615070308.0Z,true,96,UNIDENTIFIED,0-26,PS_MAJOR,SA_SERVICE_AFFECTING,FALSE,13548646,带保护业务的工作或保护业务中断导致保护降级,信号-2（主控-停车场）,qualityofServiceAlarm,OT_MatrixFlowdomainFragment,,"[{'notifIDs': ['10821092'], 'source': []}]", 
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}]",Huawei/U2000_2,用户长时间未登录,OT_EMS,20201225185533.0Z,20201225185533.0Z,true,1,UNIDENTIFIED,0-56,PS_MAJOR,SA_NON_SERVICE_AFFECTING,FALSE,11923028,当用户满足非活动用户策略被删除或暂停服务时，产生该告警。,"用户名=ossuser, 处理策略=暂停服务, 日期=2020-12-26",securityAlarm,,false,"[{'notifIDs': [], 'source': []}]",不需处理。
+"[{'name': 'EMS', 'value': 'Huawei/U2000_2'}]",Huawei/U2000_2,用户长时间未登录,OT_EMS,20200719182515.0Z,20200719182515.0Z,true,1,UNIDENTIFIED,0-56,PS_MAJOR,SA_NON_SERVICE_AFFECTING,FALSE,8801521,当用户满足非活动用户策略被删除或暂停服务时，产生该告警。,"用户名=Test1234, 处理策略=暂停服务, 日期=2020-07-20",securityAlarm,,false,"[{'notifIDs': [], 'source': []}]",不需处理。
