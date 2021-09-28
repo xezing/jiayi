@@ -48,20 +48,16 @@ def get_location():
             split_line = line.strip().split(sep)
             data = list()
             if split_line[0] == protocal:
-                # print(split_line)
-                # print('协议：', split_line[0], 'Sog=', split_line[5], 'kph=', split_line[7])
                 lat = split_line[3]
                 lon = split_line[5]
                 if lat != '' and lon != '':
-                    data.append(float(lat) / 100 +0.0696629999999985)
-                    data.append(float(lon) / 100 +0.17116)
+                    # data.append(float(lat) / 100 + 0.0696629999999985)
+                    data.append(float(lat) / 100)
+                    # data.append(float(lon) / 100 + 0.17116)
+                    data.append(float(lon) / 100)
+                    # print(data)
                     location.append(data)
-                # else:
-                #     data.append(0.0)
-                #     data.append(0.0)
-                #     location.append(data)
-                print(data)
-                # data.clear()
+        print(location)
     return location
 
 
