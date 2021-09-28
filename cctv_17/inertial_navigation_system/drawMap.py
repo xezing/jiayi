@@ -31,18 +31,17 @@ def draw_gps(locations1, locations2, color1, color2):
     folium.Marker(locations1[0], popup='<b>Starting Point</b>').add_to(m1)
     folium.Marker(locations2[-1], popup='<b>End Point</b>').add_to(m2)
 
-    m1.save(os.path.join('D://', '12.HTML'))  # 将结果以HTML形式保存到指定路径
-    m2.save(os.path.join('D://', '21.HTML'))  # 将结果以HTML形式保存到指定路径
+    m1.save(os.path.join('../inertial_navigation_system/map', 'GPS.HTML'))  # 将结果以HTML形式保存到指定路径
+    m2.save(os.path.join('../inertial_navigation_system/map', 'inertial_nav.HTML'))  # 将结果以HTML形式保存到指定路径
 
 
-def get_location():
-    file = r'../inertial_navigation_system/data_source/0928GPS.txt'
+def get_location(path):
     sep = ','
     protocal = '$GPRMC'
     list_c = [3, 5]
     location = list(list())
 
-    with open(file, 'r', encoding='utf-8') as fp:
+    with open(path, 'r', encoding='utf-8') as fp:
 
         for line in fp.readlines():
             split_line = line.strip().split(sep)
@@ -57,10 +56,23 @@ def get_location():
                     data.append(float(lon) / 100)
                     # print(data)
                     location.append(data)
-        print(location)
+        # print(location)
     return location
 
 
-location_x = get_location()
+file1 = r'../inertial_navigation_system/data_source/0928GPS.txt'
+file2 = r'../inertial_navigation_system/data_source/0928guandao.txt'
 
-draw_gps(location_x, location_x, 'red', 'orange')
+location_1 = get_location(file1)
+location_2 = get_location(file2)
+
+# l1 = [l2 for l in location_1 for l2 in l]
+# l2 = [l4 for l3 in location_2 for l4 in l3]
+#
+# print(len(l1))
+# print(len(l2))
+#
+# union = set(l1) & set(l2)
+# print(len(union))
+# print(union)
+draw_gps(location_1, location_2, 'red', 'orange')
