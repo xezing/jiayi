@@ -81,7 +81,9 @@ def get_location_win(path):
         # print(location)
     return location
 
+
 def cal_displacement():
+    return 0
 
 
 file1 = r'../inertial_navigation_system/data_source/gps_092915.txt'
