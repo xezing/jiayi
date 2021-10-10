@@ -7,6 +7,7 @@ import redisUtil
 import time, datetime
 from time import sleep
 from optparse import OptionParser
+from gps_server import topic
 
 
 def secs2str(secs):
@@ -35,7 +36,7 @@ def recv_msg(serial):
 
 
 if __name__ == '__main__':
-    parser = OptionParser() #
+    parser = OptionParser()  #
     parser.add_option('-d', '--device', help="usb device")
     opts, args = parser.parse_args()
 
@@ -51,25 +52,27 @@ if __name__ == '__main__':
     else:
         print("open [" + opts.device + "] failed.")
         exit()
-    while True:
-        try:
-            strInfo = recv_msg(ser).splitlines()
-            for strGps in strInfo:
-                if strGps.startswith('$'):
-                    if strGps.startswith('$GPRMC') or strGps.startswith('$GNRMC'):
-                        gpsFields = strGps.split(',')
-                        status = gpsFields[2]
-                        if (status == "A"):
-                            latitude = calc_gps_pos(gpsFields[3])
-                            longitude = calc_gps_pos(gpsFields[5])
-                            scanTime = getCurrentDateTime()
-                            gps = str(longitude) + "," + str(latitude)
-                            print("Time = " + scanTime + ", GPS = " + gps)
-                            sys.stdout.flush()
-                            redisUtil.hset("gps", "data", gps)
-                            redisUtil.hset("gps", "time", scanTime)
-        except Exception as ex:
-            print('Cause Exception : %s' % (ex))
-            ser.close()
-            sys.exit(0)
-    ser.close()
+    # 创建一个kafka生产者，这是一个同步生产者
+    with topic.get_sync_producer() as producer:
+
+        while True:
+            try:
+                strInfo = recv_msg(ser).splitlines()
+                for strGps in strInfo:
+                    if strGps.startswith('$'):
+                        if strGps.startswith('$GPRMC') or strGps.startswith('$GNRMC'):
+                            gpsFields = strGps.split(',')
+                            status = gpsFields[2]
+                            if (status == "A"):
+                                latitude = calc_gps_pos(gpsFields[3])
+                                longitude = calc_gps_pos(gpsFields[5])
+                                scanTime = getCurrentDateTime()
+                                gps = str(longitude) + "," + str(latitude)
+                                print("Time = " + scanTime + ", GPS = " + gps)
+                                sys.stdout.flush()
+                                producer.produce(latitude + longitude)
+            except Exception as ex:
+                print('Cause Exception : %s' % (ex))
+                ser.close()
+                sys.exit(0)
+        ser.close()

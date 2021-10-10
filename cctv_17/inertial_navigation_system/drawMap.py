@@ -47,13 +47,13 @@ def get_location(path):
             split_line = line.strip().split(sep)
             data = list()
             if split_line[0] == protocal:
-                lat = split_line[3]
-                lon = split_line[5]
+                lat = calc_gps_pos(split_line[3])
+                lon = calc_gps_pos(split_line[5])
                 if lat != '' and lon != '':
                     # data.append(float(lat) / 100 + 0.0696629999999985)
-                    data.append(float(lat) / 100)
+                    data.append(lat)
                     # data.append(float(lon) / 100 + 0.17116)
-                    data.append(float(lon) / 100)
+                    data.append(lon)
                     # print(data)
                     location.append(data)
         # print(location)
@@ -63,19 +63,17 @@ def get_location(path):
 def get_location_win(path):
     sep = ','
     location = list(list())
-
     with open(path, 'r', encoding='utf-8') as fp:
-
         for line in fp.readlines():
             split_line = line.strip().split(sep)
             data = list()
-            lat = split_line[6]
-            lon = split_line[5]
+            lat = calc_gps_pos(split_line[6])
+            lon = calc_gps_pos(split_line[5])
             if lat != '' and lon != '':
                 # data.append(float(lat) / 100 + 0.0696629999999985)
-                data.append(float(lat) / 100)
+                data.append(lat)
                 # data.append(float(lon) / 100 + 0.17116)
-                data.append(float(lon) / 100)
+                data.append(lon)
                 # print(data)
                 location.append(data)
         # print(location)
@@ -84,6 +82,13 @@ def get_location_win(path):
 
 def cal_displacement():
     return 0
+
+
+def calc_gps_pos(gps_info):
+    gps_degree = int(float(gps_info) / 100)
+    gps_cent = float(gps_info) - gps_degree * 100.0
+    gps_value = gps_degree + gps_cent / 60.0
+    return gps_value
 
 
 file1 = r'../inertial_navigation_system/data_source/gps_092915.txt'

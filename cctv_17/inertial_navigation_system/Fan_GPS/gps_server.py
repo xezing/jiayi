@@ -21,6 +21,8 @@ cursor = db.cursor()
 host = 'jiayiai.wicp.vip'
 client = KafkaClient(hosts="%s:29092" % host)
 print(client.topics)
+
+
 # 消费者
 topic = client.topics['gps']
 consumer = topic.get_simple_consumer(consumer_group='gps', auto_commit_enable=True, consumer_id='gps')
