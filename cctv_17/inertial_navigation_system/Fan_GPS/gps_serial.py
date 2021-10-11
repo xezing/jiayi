@@ -52,6 +52,7 @@ if __name__ == '__main__':
     else:
         print("open [" + opts.device + "] failed.")
         exit()
+
     # 创建一个kafka生产者，这是一个同步生产者
     with topic.get_sync_producer() as producer:
 
@@ -70,6 +71,7 @@ if __name__ == '__main__':
                                 gps = str(longitude) + "," + str(latitude)
                                 print("Time = " + scanTime + ", GPS = " + gps)
                                 sys.stdout.flush()
+                                # 将经纬度数据通过生产者发送到kafka的topic中
                                 producer.produce(latitude + longitude)
             except Exception as ex:
                 print('Cause Exception : %s' % (ex))
