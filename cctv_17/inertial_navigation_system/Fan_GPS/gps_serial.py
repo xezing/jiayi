@@ -7,7 +7,7 @@ import sys
 import time, datetime
 from time import sleep
 from optparse import OptionParser
-from gps_server import topic
+from pykafka import KafkaClient
 
 
 def secs2str(secs):
@@ -53,6 +53,12 @@ if __name__ == '__main__':
         print("open [" + opts.device + "] failed.")
         exit()
 
+    host = '192.168.10.32'
+    client = KafkaClient(hosts="%s:29092" % host)
+    print(client.topics)
+
+    # 消费者
+    topic = client.topics['gps']
     # 创建一个kafka生产者，这是一个同步生产者
     with topic.get_sync_producer() as producer:
 
