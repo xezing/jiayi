@@ -3,7 +3,7 @@
 import serial
 import os
 import sys
-import redisUtil
+# import redisUtil
 import time, datetime
 from time import sleep
 from optparse import OptionParser

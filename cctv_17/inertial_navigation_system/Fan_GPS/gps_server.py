@@ -28,9 +28,15 @@ topic = client.topics['gps']
 consumer = topic.get_simple_consumer(consumer_group='gps', auto_commit_enable=True, consumer_id='gps')
 for message in consumer:
     if message is not None:
+        m = str(message.value.decode('utf-8'))
+        m_split = m.split(',')
         print(message.offset, message.value)
-        # sql = "INSERT INTO userinfo(username,passwd) VALUES('jack','123')"
-        # cursor.execute(sql)
-        # db.commit()  #提交数据
+        lon = m_split[0]
+        print(lon)
+        lat = m_split[1]
+        sql = "INSERT INTO ins_cbtc(ins_lon,ins_lat) VALUES('%s', '%s')" %(lon, lat)
+        print(sql)
+        cursor.execute(sql)
+        db.commit()  # 提交数据
 cursor.close()
 db.close()

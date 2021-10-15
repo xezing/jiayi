@@ -2,22 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from gps_server import topic
+from pykafka import KafkaClient
 
 strInfo = [[3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12],
            [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12], [3.14, 2.12],
            [3.14, 2.12]]
 
 if __name__ == '__main__':
+    host = 'jiayiai.wicp.vip'
+    client = KafkaClient(hosts="%s:29092" % host)
+    print(client.topics)
+
+    # 消费者
+    topic = client.topics['gps']
     # 创建一个kafka生产者，这是一个同步生产者
     with topic.get_sync_producer() as producer:
 
         while True:
             try:
                 for strGps in strInfo:
-                    producer.produce(strGps[0] + strGps[1])
+                    s = str(strGps[0]) + ',' + str(strGps[1])
+                    print(s)
+                    producer.produce(bytes(s, encoding='utf-8'))
             except Exception as ex:
                 print('Cause Exception : %s' % (ex))
 
                 sys.exit(0)
-
