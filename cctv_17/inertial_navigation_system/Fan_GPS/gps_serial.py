@@ -68,11 +68,11 @@ if __name__ == '__main__':
                                 latitude = calc_gps_pos(gpsFields[3])
                                 longitude = calc_gps_pos(gpsFields[5])
                                 scanTime = getCurrentDateTime()
-                                gps = str(longitude) + "," + str(latitude)
+                                gps = str(str(longitude) + "," + str(latitude))
                                 print("Time = " + scanTime + ", GPS = " + gps)
                                 sys.stdout.flush()
                                 # 将经纬度数据通过生产者发送到kafka的topic中
-                                producer.produce(latitude + longitude)
+                                producer.produce(bytes(gps, encoding='utf-8'))
             except Exception as ex:
                 print('Cause Exception : %s' % (ex))
                 ser.close()
