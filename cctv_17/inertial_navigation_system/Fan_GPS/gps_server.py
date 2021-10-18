@@ -35,13 +35,27 @@ for message in consumer:
         print(lon)
         lat = m_split[1]
         scan_time = m_split[2]
-        speed = m_split[3]
-        cog = m_split[4]
-        displacement = m_split[5]
-        sql = "INSERT INTO ins_cbtc(ins_lon, ins_lat, scan_time, speed, cog, displacement) VALUES('%s', '%s' , '%s', '%s', '%s', '%s')" %(lon, lat, scan_time, speed, cog, displacement)
-        sql = "INSERT INTO ins_cbtc_his(ins_lon, ins_lat, scan_time, speed, cog, displacement) VALUES('%s', '%s' , '%s', '%s', '%s', '%s')" %(lon, lat, scan_time, speed, cog, displacement)
-        print(sql)
-        cursor.execute(sql)
+
+        if len(m_split) > 3:
+            speed = m_split[3]
+            cog = m_split[4]
+            displacement = m_split[5]
+        else:
+            speed = 0
+            cog = 0
+            displacement = 0
+
+        sql1 = "INSERT INTO ins_cbtc(ins_lon, ins_lat, scan_time, speed, cog, displacement) VALUES('%s', '%s' , '%s', '%s', '%s', '%s')" % (
+        lon, lat, scan_time, speed, cog, displacement)
+        sql2 = "INSERT INTO ins_cbtc_his(ins_lon, ins_lat, scan_time, speed, cog, displacement) VALUES('%s', '%s' , '%s', '%s', '%s', '%s')" % (
+        lon, lat, scan_time, speed, cog, displacement)
+        # sql3 = "INSERT INTO ins_cbtc(ins_lon, ins_lat, scan_time) VALUES('%s', '%s' , '%s')" %(lon, lat, scan_time)
+        # sql4 = "INSERT INTO ins_cbtc_his(ins_lon, ins_lat, scan_time) VALUES('%s', '%s' , '%s')" %(lon, lat, scan_time)
+        print(sql1)
+
+        cursor.execute(sql1)
+        cursor.execute(sql2)
+
         db.commit()  # 提交数据
 cursor.close()
 db.close()
