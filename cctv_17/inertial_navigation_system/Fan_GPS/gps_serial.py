@@ -53,11 +53,12 @@ if __name__ == '__main__':
         print("open [" + opts.device + "] failed.")
         exit()
 
-    host = '192.168.10.32'
+    host = 'jiayiai.wicp.vip'
     client = KafkaClient(hosts="%s:29092" % host)
     print(client.topics)
 
     # 消费者
+    displacement = 0
     topic = client.topics['gps']
     # 创建一个kafka生产者，这是一个同步生产者
     with topic.get_sync_producer() as producer:
@@ -74,11 +75,14 @@ if __name__ == '__main__':
                                 latitude = calc_gps_pos(gpsFields[3])
                                 longitude = calc_gps_pos(gpsFields[5])
                                 scanTime = getCurrentDateTime()
-                                gps = str(str(longitude) + "," + str(latitude))
+                                speed = str(gpsFields[7])
+                                displacement = int(gpsFields[7])*0.514 + displacement
+                                cog = str(gpsFields[8])
+                                gps = str(longitude) + "," + str(latitude) + "," + str(scanTime) + "," + speed + "," + cog + "," + str(displacement)
                                 print("Time = " + scanTime + ", GPS = " + gps)
                                 sys.stdout.flush()
                                 # 将经纬度数据通过生产者发送到kafka的topic中
-                                producer.produce(bytes(gps, encoding='utf-8'))
+                                producer.produce(bytes(gps).encode('utf-8'))
             except Exception as ex:
                 print('Cause Exception : %s' % (ex))
                 ser.close()

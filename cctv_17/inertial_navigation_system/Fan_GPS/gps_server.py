@@ -34,7 +34,12 @@ for message in consumer:
         lon = m_split[0]
         print(lon)
         lat = m_split[1]
-        sql = "INSERT INTO ins_cbtc(ins_lon,ins_lat) VALUES('%s', '%s')" %(lon, lat)
+        scan_time = m_split[2]
+        speed = m_split[3]
+        cog = m_split[4]
+        displacement = m_split[5]
+        sql = "INSERT INTO ins_cbtc(ins_lon, ins_lat, scan_time, speed, cog, displacement) VALUES('%s', '%s' , '%s', '%s', '%s', '%s')" %(lon, lat, scan_time, speed, cog, displacement)
+        sql = "INSERT INTO ins_cbtc_his(ins_lon, ins_lat, scan_time, speed, cog, displacement) VALUES('%s', '%s' , '%s', '%s', '%s', '%s')" %(lon, lat, scan_time, speed, cog, displacement)
         print(sql)
         cursor.execute(sql)
         db.commit()  # 提交数据
