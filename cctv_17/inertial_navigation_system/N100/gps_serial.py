@@ -1,5 +1,10 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
+
+"""
+此脚本可将N100串口数据解析，其中包括0X40 0X41 0X6F三种不同通信协议的内容
+并将解析好的数据发送到kafka的gps topic下
+"""
 import serial
 import os
 import sys
