@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-
+import math
 """
 惯导数据速度与时间提取
 """
