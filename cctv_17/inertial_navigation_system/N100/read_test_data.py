@@ -30,8 +30,6 @@ class N100:
                 # 首先筛选出40协议的数据
                 if (line_split[1].strip() == '40'):
                     time = self.trans_time(line_split[0])
-
-
                     time_split = time.split(" ")
                     timestamp = time_split[1].split(":")
                     second = timestamp[2][0:2]
@@ -44,7 +42,7 @@ class N100:
                     if(acc>100):
                         continue
                     # print(time, acc_x, acc_y, acc_z, acc)
-                    # #平滑后的数据
+                    # 平均后的数据
                     if (second != sec):
                         sec = second
                         if (count != 0):
