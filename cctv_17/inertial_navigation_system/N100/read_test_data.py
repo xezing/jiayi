@@ -48,7 +48,7 @@ class N100:
                         if (count != 0):
                             ax = ax/count
                             vt = vt + ax
-                            if (vt < 0 ):
+                            if (vt < -1 ):
                                 vt = 0
                             distance = distance + vt
                             print(time, ax, vt*3.6, vt, distance)
