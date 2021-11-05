@@ -1,14 +1,21 @@
 # -*- encoding: utf-8 -*-
 import math
+
 """
 测试计算
 """
+filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\time_table_01.txt'
+with open(filePath, 'r') as fp:
+    distance = 0
+    v0 = 0
+    for line in fp.readlines():
+        # print(len(line))
+        if (len(line) > 5):
+            line_split = line.split(",")
+            vt = float(line_split[1])
+            distance = distance + vt*5/18
+            # print(vt)
+            a = (vt - v0) * 5 / 18
+            v0 = vt
+            print(a, distance)
 
-if __name__ == '__main__':
-    a = math.asin(0.0557966/9.81)
-    a = math.degrees(a)
-    b = math.asin(0.144872/9.81)
-    c = math.asin(-9.71021/9.81)
-    b = math.degrees(b)
-    c = math.degrees(c)
-    print(c)
