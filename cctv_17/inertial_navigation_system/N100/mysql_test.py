@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-from pykafka import KafkaClient
-import pymysql
+import datetime
+import mysql_pool
 
 """
 1、从kafka读取数据，并得到日期信息
@@ -11,27 +11,14 @@ import pymysql
 """
 
 
-# 创建数据库连接
-
-config = {
-        "host": "192.168.10.32",
-        "port": 3308,
-        "user": "cbtc",
-        "password": "cbtc#456",
-        "database": "cbtc"
-}
-
-# 查询数据库中是否存在表
-def exist_table(cur):
-    execute = cur.execute("select count(1) from information_schema.tables where table_name ='student';")
-    result = [tuple[0] for tuple in cur.fetchall()]
-    return result
-
-
 if __name__ == '__main__':
-    db = pymysql.connect(**config)
-    cursor = db.cursor()
-    create_sql = '''CREATE TABLE `ins_n100_imu_20211105` (\
+    pool = mysql_pool.ConnMysql()
+    cursor = pool.cur
+    db = pool.coon
+
+    datetime_now = datetime.datetime.now()
+    date_time = datetime_now.strftime('%Y-%m-%d')
+    create_sql = '''CREATE TABLE `ins_n100_imu_%s` (\
                     `gyroscope_x` varchar(255) DEFAULT NULL COMMENT '机体系X轴角速度',\
                     `gyroscope_y` varchar(255) DEFAULT NULL COMMENT '机体系Y轴角速度',\
                     `gyroscope_z` varchar(255) DEFAULT NULL COMMENT '机体系Z轴角速度',\
@@ -45,8 +32,12 @@ if __name__ == '__main__':
                     `pressure` varchar(255) DEFAULT NULL COMMENT '气压值',\
                     `pressure_temperature` varchar(255) DEFAULT NULL COMMENT '气压计的温度值',\
                     `timestamp` varchar(255) DEFAULT NULL COMMENT '数据的时间戳'\
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;'''
-    if (exist_table(cursor)[0] == 0):
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;''' %(date_time)
+
+    sql = "select count(1) from information_schema.tables where table_name ='ins_n100_imu_%s';" %(date_time)
+    result = pool.sql_select_many(sql)[0].get('count(1)')
+
+    if (result == 0):
         cursor.execute(create_sql)
         db.commit()
     cursor.close()

@@ -17,5 +17,5 @@ with open(filePath, 'r') as fp:
             # print(vt)
             a = (vt - v0) * 5 / 18
             v0 = vt
-            print(a, distance)
+            print(a)
 

@@ -3,6 +3,7 @@
 import math
 import datetime
 
+
 """
 读取采集到的数据文件，并拿出其中的xyz加速度数据并计算出当前速度
 将当前速度与时间相乘并存入里程变量中
@@ -12,9 +13,6 @@ import datetime
 
 
 class N100:
-    Vt = 0
-    distance = 0
-
     # 读取数据文件
     # todo 根据时间范围读取相应的数据
     def readData(self, filePath):
@@ -34,7 +32,7 @@ class N100:
                     timestamp = time_split[1].split(":")
                     second = timestamp[2][0:2]
 
-                    acc_x = float(line_split[5]) - 0.06
+                    acc_x = float(line_split[5]) - 0.04
                     acc_y = float(line_split[6])
                     acc_z = float(line_split[7])
                     acc = math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
@@ -46,12 +44,13 @@ class N100:
                     if (second != sec):
                         sec = second
                         if (count != 0):
-                            ax = ax/count
+                            ax = ax/(count+1)
                             vt = vt + ax
                             if (vt < -1 ):
                                 vt = 0
                             distance = distance + vt
-                            print(time, ax, vt*3.6, vt, distance)
+                            # print(time, ax, vt*3.6, vt, distance)
+                            print(ax)
 
                         count = 0
                         # vt = 0
