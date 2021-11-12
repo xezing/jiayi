@@ -47,7 +47,7 @@ try:
                             accelerometer_z, magnetometer_x, magnetometer_y, magnetometer_z, imu_temperature, pressure,
                             pressure_temperature,
                             timestamp)
-            sql_create = '''CREATE TABLE `ins_n100_imu_%s` (\
+            sql_create = '''CREATE TABLE IF NOT EXISTS `ins_n100_imu_%s` (\
                     `gyroscope_x` varchar(255) DEFAULT NULL COMMENT '机体系X轴角速度',\
                     `gyroscope_y` varchar(255) DEFAULT NULL COMMENT '机体系Y轴角速度',\
                     `gyroscope_z` varchar(255) DEFAULT NULL COMMENT '机体系Z轴角速度',\
@@ -65,12 +65,13 @@ try:
             sql_check = "select count(1) from information_schema.tables where table_name ='ins_n100_imu_%s';" % (
                 date_time)
 
-
-            check_result = pool.sql_select_many(sql_check)[0].get('count(1)')
-            if (check_result == 0):
-                cursor.execute(sql_create)
-                pool.sql_change_msg(sql_insert)
-                db.commit()
+            if (date_time != last_time):
+                check_result = pool.sql_select_many(sql_check)[0].get('count(1)')
+                if (check_result == 0):
+                    cursor.execute(sql_create)
+                    pool.sql_change_msg(sql_insert)
+                    db.commit()
+                last_time = date_time
             else:
                 pool.sql_change_msg(sql_insert)
 except Exception as e:

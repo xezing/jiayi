@@ -4,7 +4,7 @@ import math
 import datetime
 
 """
-读取采集到的数据文件，并拿出其中的xyz加速度数据并计算出当前速度
+从kafka读取数据，并拿出其中的xyz加速度数据并计算出当前速度
 将当前速度与时间相乘并存入里程变量中
 """
 
@@ -28,7 +28,7 @@ class N100:
                     timestamp = time_split[1].split(":")
                     second = timestamp[2][0:2]
 
-                    acc_x = float(line_split[5]) - 0.04
+                    acc_x = float(line_split[5]) - 0.045
                     acc_y = float(line_split[6])
                     acc_z = float(line_split[7])
                     acc = math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
@@ -41,16 +41,15 @@ class N100:
                         sec = second
                         if (count != 0):
                             ax = ax/(count+1)
-                            # if (ax < 0.005 and ax > 0):
+                            # if (ax < 0.009 and ax > 0):
                             #     ax = 0
                             vt = vt + ax
                             if (vt < -1 ):
                                 vt = 0
                             distance = distance + vt
-                            # print(time, ',', distance)
-                            print(time,"   ax =", ax,"    vt =",  vt*3.6, "    distance=",distance)
-                            # print(time,ax)
-                            # print(vt*3.6)
+                            print(time, ax, vt*3.6, vt, distance)
+                            # print(time,"   ax =", ax,"    vt =",  vt*3.6)
+                            # print(ax)
 
                         count = 0
                         # vt = 0
@@ -68,12 +67,11 @@ class N100:
 
     # 初始状态获取
     def init_ax(self):
-
         return None
 
 
 
 if __name__ == '__main__':
-    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\1103_03.txt'
+    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\1103_02.txt'
     n100 = N100()
     n100.readData(filePath)
