@@ -11,12 +11,12 @@ last_time = ""
 # 消费者
 topic = client.topics['gps']
 consumer = topic.get_simple_consumer(consumer_group='gps', auto_commit_enable=True, consumer_id='gps')
-try:
-    pool = mysql_pool.ConnMysql()
-    cursor = pool.cur
-    db = pool.coon
+pool = mysql_pool.ConnMysql()
+cursor = pool.cur
+db = pool.coon
 
-    for message in consumer:
+for message in consumer:
+    try:
         if message is not None:
             m = str(message.value.decode('utf-8'))
             m_split = m.split(',')
@@ -34,13 +34,11 @@ try:
             pressure = m_split[10]
             pressure_temperature = m_split[11]
             timestamp = m_split[12]
-
             # 判断时间是否与预存储时间一致
             date = timestamp.split(" ")[0]
             date_time_split = date.split("-")
             date_time = date_time_split[0] + date_time_split[1] + date_time_split[2]
             # print(date_time)
-
             sql_insert = "INSERT INTO ins_n100_imu_%s(gyroscope_x,gyroscope_y,gyroscope_z,accelerometer_x,accelerometer_y,accelerometer_z,magnetometer_x,magnetometer_y,magnetometer_z,imu_temperature,pressure,pressure_temperature,timestamp) " \
                          "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')" \
                          % (date_time, gyroscope_x, gyroscope_y, gyroscope_z, accelerometer_x, accelerometer_y,
@@ -63,7 +61,6 @@ try:
                             `timestamp` varchar(255) DEFAULT NULL COMMENT '数据的时间戳'\
                             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;''' % (date_time)
             sql_check = "select count(1) from information_schema.tables where table_name ='ins_n100_imu_%s';" % (date_time)
-
             if (date_time != last_time):
                 check_result = pool.sql_select_many(sql_check)[0].get('count(1)')
                 if (check_result == 0):
@@ -73,7 +70,7 @@ try:
                 last_time = date_time
             else:
                 pool.sql_change_msg(sql_insert)
-except Exception as e:
-    print(str(e))
-finally:
-    pool.release()
+    except Exception as e:
+        print(e)
+    continue
+pool.release()
