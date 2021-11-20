@@ -67,8 +67,10 @@ def get_location_win(path):
         for line in fp.readlines():
             split_line = line.strip().split(sep)
             data = list()
-            lat = calc_gps_pos(split_line[6])
-            lon = calc_gps_pos(split_line[5])
+            # lat = calc_gps_pos(split_line[6])
+            # lon = calc_gps_pos(split_line[5])
+            lat = float(split_line[1]) + 0.0003
+            lon = float(split_line[0]) - 0.00741
             if lat != '' and lon != '':
                 # data.append(float(lat) / 100 + 0.0696629999999985)
                 data.append(lat)
@@ -92,11 +94,12 @@ def calc_gps_pos(gps_info):
 
 
 file1 = r'../inertial_navigation_system/data_source/gps_092915.txt'
-file2 = r'../inertial_navigation_system/data_source/WTGPS-300_2021-09-29-15-05-48-8808.txt'
+# file2 = r'../inertial_navigation_system/data_source/WTGPS-300_2021-09-29-15-05-48-8808.txt'
+file2 = r'../inertial_navigation_system/data_source/line14_test.txt'
 
 location_1 = get_location(file1)
 location_2 = get_location_win(file2)
-
+#
 # l1 = [l2 for l in location_1 for l2 in l]
 # l2 = [l4 for l3 in location_2 for l4 in l3]
 #
@@ -106,6 +109,6 @@ location_2 = get_location_win(file2)
 # union = set(l1) & set(l2)
 # print(len(union))
 # print(union)
-# draw_gps(location_1, location_2, 'red', 'orange')
-# print(location_1)
+# draw_gps(location_2, location_2, 'red', 'red')
+print(location_1)
 print(location_2)

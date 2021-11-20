@@ -106,12 +106,13 @@ if __name__ == '__main__':
                             # print ('header length = %d, body length = %d, %X, %X, %d, %d' %(len (sHeader), len (sBody), header_start, data_type, data_size, serial_num))
                             gyroscope_x, gyroscope_y, gyroscope_z, accelerometer_x, accelerometer_y, accelerometer_z, magnetometer_x, magnetometer_y, magnetometer_z, imu_temperature, pressure, pressure_temperature, timestamp, body_end = struct.unpack(
                                 "<12fQB", sBody)
+                            now_time = getDateTime()
                             print('%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d' % (
                                 gyroscope_x, gyroscope_y, gyroscope_z, accelerometer_x, accelerometer_y,
                                 accelerometer_z,
                                 magnetometer_x, magnetometer_y, magnetometer_z, imu_temperature, pressure,
                                 pressure_temperature,
-                                timestamp))
+                                now_time))
                             # result_out.write('%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d\n' % (
                             # gyroscope_x, gyroscope_y, gyroscope_z, accelerometer_x, accelerometer_y, accelerometer_z,
                             # magnetometer_x, magnetometer_y, magnetometer_z, imu_temperature, pressure, pressure_temperature,
@@ -120,7 +121,7 @@ if __name__ == '__main__':
                                 accelerometer_x) + "," + str(accelerometer_y) + "," + str(accelerometer_z) + "," + str(
                                 magnetometer_x) + "," + str(magnetometer_y) + "," + str(magnetometer_z) + "," + str(
                                 imu_temperature) + "," + str(pressure) + "," + str(pressure_temperature) + "," + str(
-                                timestamp)
+                                now_time)
                             print(output)
                             producer.produce(bytes(output).encode('utf-8'))
                         elif (iCmd == 0x6F):
