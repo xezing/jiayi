@@ -23,12 +23,13 @@ class N100:
 
                 # 首先筛选出40协议的数据
                 if (line_split[1].strip() == '40'):
-                    time = self.trans_time(line_split[0])
+                    # time = self.trans_time(line_split[0])
+                    time = line_split[0]
                     time_split = time.split(" ")
                     timestamp = time_split[1].split(":")
                     second = timestamp[2][0:2]
 
-                    acc_x = float(line_split[5]) - 0.04
+                    acc_x = float(line_split[5]) + 0.05
                     acc_y = float(line_split[6])
                     acc_z = float(line_split[7])
                     acc = math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
@@ -74,6 +75,6 @@ class N100:
 
 
 if __name__ == '__main__':
-    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\1103_03.txt'
+    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\5130-5330.txt'
     n100 = N100()
     n100.readData(filePath)
