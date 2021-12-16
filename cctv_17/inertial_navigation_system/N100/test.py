@@ -2,32 +2,45 @@
 import os,time,random
 import queue
 import threading
+import logging
 
+logging.basicConfig(level=logging.DEBUG,
+                    format="%(asctime)s %(name)s %(levelname)s %(message)s",
+                    datefmt = '%Y-%m-%d  %H:%M:%S %a'    #注意月份和天数不要搞乱了，这里的格式化符与time模块相同
+                    )
+logging.debug("msg1")
+logging.info("msg2")
+logging.warning("msg3")
+logging.error("msg4")
+logging.critical("msg5")
 """
 测试
 """
 
-def sub_thread_A(q):
+status = 0
+
+def sub_thread_A():
     """A线程函数：生成数据"""
     while True:
-        time.sleep(5*random.random()) # 0-5秒随机延时
-        q.put(random.randint(10,100)) # 随机生成【10，100】的整数
+        time.sleep(1)
 
-def sub_thread_B(q):
+        print(status)
+
+def sub_thread_B():
     """B线程函数，使用数据"""
-    words = ['哈哈', '天哪', 'GOD', '卧槽']
+    global status
     while True:
-        print('%s见到了%d块钱！' %(words[random.randint(0,3)], q.get()))
+        try:
+            i = input("input=")
+            status = int(i)
+        except Exception as e:
+            print(e)
+        continue
+
 
 if __name__ == '__main__':
-    print('线程(%s)开始，按回车结束本程序' %os.getpid())
 
-    q = queue.Queue(10)
-    A = threading.Thread(target=sub_thread_A, args=(q,))
-    A.setDaemon(True)
+    A = threading.Thread(target=sub_thread_A)
     A.start()
-    B = threading.Thread(target=sub_thread_B, args=(q,))
-    B.setDaemon(True)
+    B = threading.Thread(target=sub_thread_B)
     B.start()
-
-    input()

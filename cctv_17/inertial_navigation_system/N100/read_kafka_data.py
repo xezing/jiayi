@@ -18,7 +18,7 @@ def trans_time(time):
     return new_time
 
 host = 'jiayiai.wicp.vip'
-def cal_distance(start_time):
+def cal_distance():
     try:
         vt = 0
         distance = 0
@@ -27,8 +27,8 @@ def cal_distance(start_time):
         count = 0
 
         client = KafkaClient(hosts="%s:29092" % host)
-        topic = client.topics['gps']
-        consumer = topic.get_simple_consumer(consumer_group='gps', auto_commit_enable=True, consumer_id='gps')
+        topic = client.topics['n100_1216']
+        consumer = topic.get_simple_consumer(consumer_group='gps1', auto_commit_enable=False, consumer_id='gps1')
 
         for message in consumer:
             m = str(message.value.decode('utf-8'))
@@ -47,6 +47,8 @@ def cal_distance(start_time):
             pressure = m_split[10]
             pressure_temperature = m_split[11]
             timestamp = m_split[12]
+
+            print(accelerometer_z)
 
             time = trans_time(m_split[12])
             check_time = time[0:-7]
@@ -83,6 +85,7 @@ def cal_distance(start_time):
                 # print(count)
     except Exception as e:
         print(e)
+
 def get_ats():
     return 1
 if __name__ == '__main__':
