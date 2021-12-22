@@ -11,8 +11,8 @@ END_TIME= 4602 #设置结束时间(单位秒)
 
 vidcap = cv2.VideoCapture(input_video)
 
-# fps = int(vidcap.get(cv2.CAP_PROP_FPS))     # 获取视频每秒的帧数
-fps = 3
+fps = int(vidcap.get(cv2.CAP_PROP_FPS))     # 获取视频每秒的帧数
+# fps = 3
 print("fps: ", fps)
 
 frameToStart = START_TIME*fps + 23               #开始帧 = 开始时间*帧率

@@ -19,8 +19,8 @@ def cut_img(path, count):
 
 if __name__ == '__main__':
     count = 0
-    while count < 13807:
+    while count < 138070:
     # while count < 13:
         path = r'D:\screenshot2\sc' + str(count) + '.jpg'
         cut_img(path, count)
-        count += 3
+        count += 30
