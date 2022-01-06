@@ -69,8 +69,10 @@ def get_location_win(path):
             data = list()
             # lat = calc_gps_pos(split_line[6])
             # lon = calc_gps_pos(split_line[5])
-            lat = float(split_line[1]) + 0.0003
-            lon = float(split_line[0]) - 0.00741
+            # lat = float(split_line[1]) + 0.0003
+            # lon = float(split_line[0]) - 0.00741
+            lat = float(split_line[3])
+            lon = float(split_line[2])
             if lat != '' and lon != '':
                 # data.append(float(lat) / 100 + 0.0696629999999985)
                 data.append(lat)
@@ -95,7 +97,7 @@ def calc_gps_pos(gps_info):
 
 file1 = r'../inertial_navigation_system/data_source/gps_092915.txt'
 # file2 = r'../inertial_navigation_system/data_source/WTGPS-300_2021-09-29-15-05-48-8808.txt'
-file2 = r'../inertial_navigation_system/data_source/line14_test.txt'
+file2 = r'../inertial_navigation_system/data_source/line_14.csv'
 
 location_1 = get_location(file1)
 location_2 = get_location_win(file2)
@@ -109,6 +111,6 @@ location_2 = get_location_win(file2)
 # union = set(l1) & set(l2)
 # print(len(union))
 # print(union)
-# draw_gps(location_2, location_2, 'red', 'red')
-print(location_1)
+draw_gps(location_2, location_2, 'red', 'red')
+# print(location_1)
 print(location_2)
