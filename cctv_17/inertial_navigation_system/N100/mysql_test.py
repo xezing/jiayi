@@ -10,7 +10,6 @@ import mysql_pool
 4、存在则插入，不存在则创建并插入
 """
 
-
 if __name__ == '__main__':
     pool = mysql_pool.ConnMysql()
     cursor = pool.cur
@@ -32,12 +31,12 @@ if __name__ == '__main__':
                     `pressure` varchar(255) DEFAULT NULL COMMENT '气压值',\
                     `pressure_temperature` varchar(255) DEFAULT NULL COMMENT '气压计的温度值',\
                     `timestamp` varchar(255) DEFAULT NULL COMMENT '数据的时间戳'\
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;''' %(date_time)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;''' % date_time
 
-    sql = "select count(1) from information_schema.tables where table_name ='ins_n100_imu_%s';" %(date_time)
+    sql = "select count(1) from information_schema.tables where table_name ='ins_n100_imu_%s';" % date_time
     result = pool.sql_select_many(sql)[0].get('count(1)')
 
-    if (result == 0):
+    if result == 0:
         cursor.execute(create_sql)
         db.commit()
     cursor.close()
