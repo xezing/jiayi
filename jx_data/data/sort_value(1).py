@@ -2,6 +2,7 @@
 import os
 import zipfile
 
+
 for root, dirs, files in os.walk('/home/ap/ailog/log_storage/'):
     if len(files) == 0:
         continue
