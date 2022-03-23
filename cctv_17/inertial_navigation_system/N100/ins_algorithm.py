@@ -8,6 +8,7 @@ import datetime
 将当前速度与时间相乘并存入里程变量中
 """
 
+
 class N100:
     # 读取数据文件
     # todo 根据时间范围读取相应的数据
@@ -33,22 +34,22 @@ class N100:
                     acc_z = float(line_split[7])
                     acc = math.sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z)
 
-                    if(acc>100):
+                    if (acc > 100):
                         continue
                     # print(time, acc_x, acc_y, acc_z, acc)
                     # 平均后的数据
                     if (second != sec):
                         sec = second
                         if (count != 0):
-                            ax = ax/(count+1)
+                            ax = ax / (count + 1)
                             # if (ax < 0.009 and ax > 0):
                             #     ax = 0
                             vt = vt + ax
-                            if (vt < -1 ):
+                            if (vt < -1):
                                 vt = 0
                             distance = distance + vt
-                            print(time, ax, vt*3.6, vt, distance)
-                            # print(time,"   ax =", ax,"    vt =",  vt*3.6)
+                            # print(time, ax, vt*3.6, vt, distance)
+                            print(time, "    ax =", ax, "    vt =", vt * 3.6, "    distance=", distance)
                             # print(ax)
 
                         count = 0
@@ -70,8 +71,7 @@ class N100:
         return None
 
 
-
 if __name__ == '__main__':
-    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\1103_02.txt'
+    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\method_one_data.txt'
     n100 = N100()
     n100.readData(filePath)
