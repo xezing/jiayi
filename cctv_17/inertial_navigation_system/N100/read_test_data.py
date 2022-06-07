@@ -75,6 +75,6 @@ class N100:
 
 
 if __name__ == '__main__':
-    filePath = r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\5130-5330.txt'
+    filePath = r'../data_source/5130-5330.txt'
     n100 = N100()
     n100.readData(filePath)

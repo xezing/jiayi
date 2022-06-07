@@ -50,9 +50,9 @@ def get_ats():
 if __name__ == '__main__':
     if(get_ats() == 1):
         try:
-            df1 = pd.read_csv(r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\frakiss_diff(1).csv')
+            df1 = pd.read_csv(r'../data_source/frakiss_diff(1).csv')
             first1 = df1.iloc[130:270]
-            df2 = pd.read_csv(r'D:\workspace\jiayi\cctv_17\inertial_navigation_system\data_source\wait_for_analysis.csv')
+            df2 = pd.read_csv(r'../data_source/wait_for_analysis.csv')
             first2 = df2.iloc[385:525]
             cal_distance_11(df1,first1)
             cal_distance_12(df2,first2)
